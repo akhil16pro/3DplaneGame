@@ -7,7 +7,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-let  mixer ='', model = '';
+
+let mixer: Object = {};
+
+let canvasObj= document.getElementById('planeWrap');
   
   const scene = new THREE.Scene()
    //scene.background = new THREE.Color(0xdddddd);
@@ -37,11 +40,11 @@ if(window.innerWidth >1025) {
   const renderer = new THREE.WebGLRenderer({ 
     antialias: true, 
     alpha: true,
-    canvas : document.querySelector('#planeWrap')
+   // canvas : document.querySelector('#planeWrap')
    })
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
-
+  canvasObj!.appendChild(renderer.domElement);
 
   // const controls = new OrbitControls(camera, renderer.domElement);
   // controls.update();
@@ -57,19 +60,24 @@ if(window.innerWidth >1025) {
   let loader = new GLTFLoader()
 
   loader.load('./gltf/scene.gltf', (gltf) => {
-    model = gltf.scene;
+    let model = gltf.scene;
     model.position.y = -0.2;
     model.rotation.x = 0.6;
     model.rotation.y = 0.6;
     scene.add(model)
 
-    const clips = gltf.animations;
+    //const clips = gltf.animations;
     mixer = new THREE.AnimationMixer( model );
-    const idleClip = THREE.AnimationClip.findByName(clips, 'Take 001')
-    const idleAction = mixer.clipAction(idleClip)
+   // const idleClip = THREE.AnimationClip.findByName(clips, 'Take 001')
+   
+      
+    //const idleAction = mixer.clipAction(idleClip)
+    const idleAction = mixer.clipAction((gltf as any).animations[0])
     idleAction.play()     
     animate()
     renderer.render(scene, camera)
+    
+    
   }) 
 
   const clock = new THREE.Clock();
