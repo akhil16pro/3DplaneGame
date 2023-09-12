@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       port: 8080,
       open: true,
     },
-
+    base: './',
     optimizeDeps: {
       exclude: ['js-big-decimal'],
     },
