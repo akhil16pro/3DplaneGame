@@ -77,6 +77,8 @@ if(window.innerWidth >1025) {
     animate()
     renderer.render(scene, camera)
     
+
+    document.body.classList.add('domLoaded');
     
   }) 
 

@@ -43,6 +43,8 @@ header {
   z-index: 10;
   text-transform: uppercase;
   background-color: #212121;
+  transform: translateY(-100%);
+
   .container {
     display: flex;
     align-items: center;
@@ -111,9 +113,24 @@ header {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 15;
   canvas {
     width: 100%;
     height: 100%;
+    transform: translateY(-30vh) translateX(-10vw) scale(0.5);
+    transition: all 0.8s ease-in-out;
+  }
+}
+.domLoaded {
+  .planeWrap {
+    canvas {
+      transform: none;
+      transition-delay: 0.2s;
+    }
+  }
+  header {
+    transform: none;
+    transition: all 0.8s ease-in-out 1s;
   }
 }
 
@@ -140,6 +157,10 @@ main {
     font-weight: 600;
     letter-spacing: 8px;
     text-transform: uppercase;
+    transform: translateY(-10vh) translateZ(0) scaleY(1.5);
+    opacity: 0;
+    transform-origin: bottom;
+
     @media only screen and (min-width: 1680px) {
       font-size: 6vw;
     }
@@ -151,6 +172,18 @@ main {
     }
     @media only screen and (max-width: 767px) {
       font-size: 13vw;
+    }
+  }
+}
+
+.domLoaded {
+  .homeBanner {
+    h1 {
+      transform: translateY(0) translateZ(0) scaleY(1);
+      opacity: 1;
+      transition: transform 1.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0.7s,
+        opacity 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0.7s,
+        -webkit-transform 1.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0.7s;
     }
   }
 }
@@ -194,6 +227,14 @@ main {
 .bgColor {
   background-color: var(--brand);
   color: var(--black);
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.domLoaded {
+  .bgColor {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    transition: all 1.2s ease-in-out 0.65s;
+  }
 }
 
 .title {
